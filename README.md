@@ -6,7 +6,8 @@ and magnetostatic configurations and some fluid examples.  It also contains code
 for some simplistic calculations of charge distributions.
 
 In the source folder, files with the prefix ``es`` are electrostatic scripts,
-``ms`` indicates magnetostatic scripts, and ``fl`` indicates a fluid script.
+``ms`` indicates magnetostatic scripts, ``fl`` indicates a fluid script, and
+``cir`` indicates a script for electric circuits.
 
 
 ## Licence
