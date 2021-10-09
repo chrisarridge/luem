@@ -40,6 +40,35 @@ def cartesian_2d_grid(xmin, xmax, ymin, ymax, dx, dy):
 
 
 
+def cartesian_3d_grid(xmin, xmax, ymin, ymax, zmin, zmax, dx, dy, dz):
+	"""Create a 3D grid
+
+	Each point (really a small cube) in a 3D grid is characterised by its
+	edges in x, y and z (edges of the cube) and centre coordintes x, y and z.
+
+	Args:
+
+		:param xmin: Minimum x value.
+		:param xmax: Maximum x value.
+		:param ymin: Minimum y value.
+		:param ymax: Maximum y value.
+		:param zmin: Minimum z value.
+		:param zmax: Maximum z value.
+		:param dx: size of each small cube in the x direction.
+		:param dy: size of each small cube in the y direction.
+		:param dz: size of each small cube in the z direction.
+		:return: xedges, yedges, zedges, xcentres, ycentres, zcentres
+	"""
+	xedges = np.arange(xmin-dz/2.0, xmax+dx/2.0, dx)
+	yedges = np.arange(ymin-dz/2.0, ymax+dy/2.0, dy)
+	zedges = np.arange(zmin-dz/2.0, zmax+dz/2.0, dz)
+	xe, ye, ze = np.meshgrid(xedges, yedges, zedges)
+	xc, yc, zc = np.meshgrid((xedges[:-1]+xedges[1:])/2.0,
+				(yedges[:-1]+yedges[1:])/2.0, (zedges[:-1]+zedges[1:])/2.0,
+				indexing='ij')
+	return xe, ye, ze, xc, yc, zc
+
+
 def do_patches(x, y, z, xp, yp, zp, dq, Ex, Ey, Ez):
 	"""Adds the electric field contributions from a set of patches.
 
