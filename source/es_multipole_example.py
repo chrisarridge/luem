@@ -62,7 +62,7 @@ rho = rho_monopole + rho_dipole + rho_quad
 # Plot the charge densities.
 #
 # ==============================================================================
-fig = plt.figure(figsize=(16.0,6.0))
+fig = plt.figure(figsize=(16.0,4.0))
 
 vminmax = 1
 
@@ -91,8 +91,10 @@ plt.pcolormesh(xe[:,:,100], ye[:,:,100], rho[:,:,100].T, cmap='RdBu_r', vmin=-vm
 plt.xlabel('x [m]')
 plt.gca().set_aspect('equal')
 
-pos = plt.gca().get_position()
+plt.tight_layout()
 fig.subplots_adjust(right=0.8)#
+
+pos = plt.gca().get_position()
 cbar_ax = fig.add_axes([0.85, pos.y0, 0.02, pos.height])
 h=plt.colorbar(cax=cbar_ax)
 h.set_label(r'Charge density, $\rho\ [\rm{C}\ \rm{m}^{-3}]$')
@@ -113,7 +115,7 @@ print('Monopole moment: {} actual={}'.format(monopole_calc,q_monopole))
 # Plot the dipole moment integrand.
 #
 # ==============================================================================
-fig = plt.figure(figsize=(16.0,6.0))
+fig = plt.figure(figsize=(16.0,4.0))
 
 vminmax = 1
 
@@ -136,8 +138,10 @@ plt.pcolormesh(xe[:,:,100], ye[:,:,100], zc[:,:,100].T*rho[:,:,100].T, cmap='RdB
 plt.xlabel('x [m]')
 plt.gca().set_aspect('equal')
 
-pos = plt.gca().get_position()
+plt.tight_layout()
 fig.subplots_adjust(right=0.8)#
+pos = plt.gca().get_position()
+
 cbar_ax = fig.add_axes([0.85, pos.y0, 0.02, pos.height])
 h=plt.colorbar(cax=cbar_ax)
 h.set_label(r'Dipole moment integrand $[\rm{C}\ \rm{m}^{-2}]$')
@@ -157,7 +161,7 @@ print('Dipole moment: ({},{},{}) actual=({},{},{})'.format(dipole_calc_x,dipole_
 # Plot the quadrupole moment integrand.
 #
 # ==============================================================================
-fig = plt.figure(figsize=(16.0,16.0))
+fig = plt.figure(figsize=(16.0,14.0))
 
 vminmax = 1
 
@@ -165,46 +169,46 @@ r2 = xc**2 + yc**2 + zc**2
 
 plt.subplot(3,3,1)
 plt.title(r'$\rho({\bf r\prime})(3r_x\prime r_x\prime - (r\prime)^2)$')
-ig = (3*xc[:,:,100]*xc[:,:,100] - r2[:,:,100]*1.0)*rho
+ig = (3*xc*xc - r2*1.0)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.gca().set_aspect('equal')
 plt.ylabel('y [m]')
 
 plt.subplot(3,3,2)
 plt.title(r'$\rho({\bf r\prime})(3r_x\prime r_y\prime)$')
-ig = (3*xc[:,:,100]*yc[:,:,100] - r2[:,:,100]*0.0)*rho
+ig = (3*xc*yc)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.gca().set_aspect('equal')
 
 plt.subplot(3,3,3)
 plt.title(r'$\rho({\bf r\prime})(3r_x\prime r_z\prime)$')
-ig = (3*xc[:,:,100]*zc[:,:,100] - r2[:,:,100]*0.0)*rho
+ig = (3*xc*zc)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.gca().set_aspect('equal')
-pos1 = plt.gca().get_position()
+ax3 = plt.gca()
 
 plt.subplot(3,3,4)
 plt.title(r'$\rho({\bf r\prime})(3r_y\prime r_x\prime)$')
-ig = (3*yc[:,:,100]*xc[:,:,100] - r2[:,:,100]*0.0)*rho
+ig = (3*yc*xc)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.gca().set_aspect('equal')
 plt.ylabel('y [m]')
 
 plt.subplot(3,3,5)
 plt.title(r'$\rho({\bf r\prime})(3r_y\prime r_y\prime - (r\prime)^2)$')
-ig = (3*yc[:,:,100]*yc[:,:,100] - r2[:,:,100]*1.0)*rho
+ig = (3*yc*yc - r2)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.gca().set_aspect('equal')
 
 plt.subplot(3,3,6)
 plt.title(r'$\rho({\bf r\prime})(3r_y\prime r_z\prime)$')
-ig = (3*yc[:,:,100]*zc[:,:,100] - r2[:,:,100]*0.0)*rho
+ig = (3*yc*zc)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.gca().set_aspect('equal')
 
 plt.subplot(3,3,7)
 plt.title(r'$\rho({\bf r\prime})(3r_z\prime r_x\prime)$')
-ig = (3*zc[:,:,100]*xc[:,:,100] - r2[:,:,100]*0.0)*rho
+ig = (3*zc*xc)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.xlabel('x [m]')
 plt.gca().set_aspect('equal')
@@ -212,23 +216,29 @@ plt.ylabel('y [m]')
 
 plt.subplot(3,3,8)
 plt.title(r'$\rho({\bf r\prime})(3r_z\prime r_y\prime)$')
-ig = (3*zc[:,:,100]*yc[:,:,100] - r2[:,:,100]*0.0)*rho
+ig = (3*zc*yc)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.xlabel('x [m]')
 plt.gca().set_aspect('equal')
 
 plt.subplot(3,3,9)
 plt.title(r'$\rho({\bf r\prime})(3r_z\prime r_z\prime - (r\prime)^2)$')
-ig = (3*zc[:,:,100]*zc[:,:,100] - r2[:,:,100]*1.0)*rho
+ig = (3*zc*zc - r2)*rho
 plt.pcolormesh(xe[:,:,100], ye[:,:,100], ig[:,:,100].T, cmap='RdBu_r', vmin=-vminmax, vmax=vminmax)
 plt.xlabel('x [m]')
 plt.gca().set_aspect('equal')
 
-pos2 = plt.gca().get_position()
+ax9 = plt.gca()
+plt.tight_layout()
+
 fig.subplots_adjust(right=0.8)#
-cbar_ax = fig.add_axes([0.85, pos2.y0, 0.02, pos1.y1-pos2.y0])
+pos3=ax3.get_position()
+pos9=ax9.get_position()
+
+cbar_ax = fig.add_axes([0.85, pos9.y0, 0.02, pos3.y1-pos9.y0])
 h=plt.colorbar(cax=cbar_ax)
 h.set_label(r'Quadrupole moment integrand $[\rm{C}\ \rm{m}^{-1}]$')
+
 
 plt.savefig('mp-example-quad-integrand.png',dpi=300)
 
