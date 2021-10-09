@@ -72,18 +72,27 @@ def charged_hollow_unit_cube(x, y, z, Q, n=10):
 	return Ex, Ey, Ez
 
 # Calculate the electric field on the z=0 axis as a function of x and y.
-xe, ye, xc, yc = util.cartesian_2d_grid(-4, 4.0, -4, 4.0, 0.05, 0.05)
+xe, ye, xc, yc = util.cartesian_2d_grid(-0.6, 0.6, -0.6, 0.6, 0.005, 0.005)
 zc = np.zeros_like(xc)
 
-Ex, Ey, Ez = charged_hollow_unit_cube(xc.flatten(), yc.flatten(), zc.flatten(), 1, n=100)
+Ex, Ey, Ez = charged_hollow_unit_cube(xc.flatten(), yc.flatten(), zc.flatten(), 1, n=20)
 Ex = np.reshape(Ex,xc.shape)
 Ey = np.reshape(Ey,xc.shape)
 Ez = np.reshape(Ez,xc.shape)
 
-plt.pcolormesh(xe, ye, np.sqrt(Ex**2 + Ey**2))
-plt.colorbar()
-plt.quiver(xc,yc,Ex,Ey)
+#plt.pcolormesh(xe, ye, np.sqrt(Ex**2 + Ey**2))
+#plt.colorbar()
+#plt.pcolormesh(xe, ye, np.sqrt(Ex**2 + Ey**2))
+#plt.colorbar()
+#plt.clim([0,1e9])
+#plt.quiver(xc,yc,Ex,Ey)
+plt.streamplot(xc,yc,Ex,Ey,density=2)
+plt.plot([-0.5,0.5],[-0.5,-0.5],'-k')
+plt.plot([-0.5,0.5],[0.5,0.5],'-k')
+plt.plot([-0.5,-0.5],[-0.5,0.5],'-k')
+plt.plot([0.5,0.5],[-0.5,0.5],'-k')
 plt.xlabel('x [m]')
 plt.ylabel('z [m]')
+plt.gca().set_aspect('equal')
 plt.axis('equal')
 plt.show()
